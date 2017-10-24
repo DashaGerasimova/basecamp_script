@@ -14,7 +14,9 @@ response = Request.new(link + "people.json", user, password).get
 people = JSON.parse(response.body)
 
 people.each do |person|
+  # GET /people/1/projects.json
   response = Request.new(link + "people/#{person["id"]}/projects.json", user, password).get
   projects = JSON.parse(response.body)
+  # DELETE /people/1.json
   Request.new(link + "people/#{person["id"]}.json", user, password).delete if projects.empty?
 end
